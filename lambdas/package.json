@@ -22,7 +22,6 @@
     "serverless-offline": "^5.3.3"
   },
   "dependencies": {
-    "@hapi/joi": "^17.1.1",
     "pg": "^8.3.0",
     "uuid": "^8.3.0"
   },
