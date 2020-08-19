@@ -2,10 +2,12 @@ version: "3"
 
 services:
   postgres:
-    image: postgres
+    build: ./postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: restaurants
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
     ports:
       - "5432:5432"
