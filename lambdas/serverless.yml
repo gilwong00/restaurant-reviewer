@@ -1,6 +1,11 @@
 # NOTE: update this with your service name
 service: lambdas
 
+custom:
+  bundle:
+    ignorePackages:
+      - pg-native
+
 # Create an optimized package for our functions
 package:
   individually: true
@@ -20,13 +25,25 @@ provider:
   # the following line. Also, make sure to not
   # commit your .env.
   #
-  #environment:
-  #  SAMPLE_ENV_VAR: ${env:SAMPLE_ENV_VAR}
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_DB: restaurants
+    POSTGRES_HOST: localhost
+    POSTGRES_PORT: 5432
 
 functions:
-  hello:
-    handler: handler.hello
+  getRestaurant:
+    handler: handlers/restaurant/getRestaurant.get
     events:
       - http:
-          path: hello
+          path: /restaurant/{id}
           method: get
+          cors: true
+  getAllRestaurants:
+    handler: handlers/restaurant/getAllRestaurants.list
+    events:
+      - http:
+          path: /restaurants
+          method: get
+          cors: true

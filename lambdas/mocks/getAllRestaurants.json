@@ -1,0 +1,7 @@
+{
+  "resource": "/restaurants",
+  "httpMethod": "GET",
+  "queryStringParameters": {
+    "offset": 10
+  }
+}
