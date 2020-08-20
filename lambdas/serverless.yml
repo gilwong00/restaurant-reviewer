@@ -47,3 +47,10 @@ functions:
           path: /restaurants
           method: get
           cors: true
+  addRestaurant:
+    handler: handlers/restaurant/addRestaurant.add
+    events:
+      - http:
+          path: /restaurants
+          method: post
+          cors: true
