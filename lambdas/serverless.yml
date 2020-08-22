@@ -1,10 +1,10 @@
 # NOTE: update this with your service name
 service: lambdas
 
-custom:
-  bundle:
-    ignorePackages:
-      - pg-native
+# custom:
+#   bundle:
+#     ignorePackages:
+#       - pg-native
 
 # Create an optimized package for our functions
 package:
