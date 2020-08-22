@@ -4,7 +4,6 @@
   "body": {
     "name": "test2",
     "location": "Los Angeles",
-    "priceRange": "2",
-    "photoUrl": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEAkACQAAD/oiURKIlESiLkoBfyHl8h9Kh0Rf/Z"
+    "priceRange": "2"
   }
 }

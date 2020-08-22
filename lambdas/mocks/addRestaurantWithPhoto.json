@@ -1,0 +1,10 @@
+{
+  "resource": "/restaurants",
+  "httpMethod": "POST",
+  "body": {
+    "name": "test3",
+    "location": "New York",
+    "priceRange": "3",
+    "photoUrl": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEAkACQAAD/oiURKIlESiLkoBfyHl8h9Kh0Rf/Z"
+  }
+}

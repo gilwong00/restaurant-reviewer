@@ -1,5 +1,5 @@
 import handlerResponse from '../../libs/response';
-import client from '../../libs/dynamoDb';
+import query from '../../postgres';
 import { validateSchema } from '../../models/restaurant';
 import { uploadImage } from '../../utils/s3';
 
@@ -11,20 +11,36 @@ export const add = async (event) => {
       return handlerResponse(400, error);
     }
 
-    const params = {
-      TableName: process.env.restaurantTable,
-      Item: {
-        ...value
-      }
-    };
+    const insertQuery = `
+		INSERT INTO restaurants (
+			name,
+			location,
+			price_range,
+			date_added
+		)
+		VALUES ($1, $2, $3, $4)	
+		RETURNING *
+	`;
+
+    const values = [
+      value.name,
+      value.location,
+      value.priceRange,
+      value.dateAdded
+    ];
 
     // if data or value has a photo url, upload to s3 or can also store the image in postgre
     if (value.hasOwnProperty('photoUrl') && value.photoUrl.length > 0) {
       await uploadImage(value.name, value.photoUrl);
     }
 
-    await client.put(params);
-    return handlerResponse(200, params.Item);
+    const { rows } = await query(insertQuery, values);
+
+    if (rows.length > 0) {
+      return handlerResponse(200, rows[0]);
+    } else {
+      return handlerResponse(400, 'Could not add restaurant');
+    }
   } catch (err) {
     return handlerResponse(500, err.message ?? '');
   }

@@ -1,4 +1,5 @@
 import handlerResponse from '../../libs/response';
+import query from '../../postgres';
 
 export const get = async (event) => {
   try {
