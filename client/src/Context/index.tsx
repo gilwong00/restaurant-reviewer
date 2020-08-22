@@ -1,10 +1,10 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from 'react';
 const endpoint =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === 'production'
     ? process.env.REACT_APP_PROD_ENDPOINT
     : process.env.REACT_APP_DEV_ENDPOINT;
 
-export type Direction = "previous" | "next";
+export type Direction = 'previous' | 'next';
 
 export interface IRestaurant {
   id: string;
@@ -24,7 +24,7 @@ interface IAppContext {
 
 export const AppContext = createContext<IAppContext>({
   restaurants: [],
-  handlePageChange: () => undefined,
+  handlePageChange: () => undefined
 });
 
 export default ({ children }: { children: React.ReactNode }) => {
@@ -32,7 +32,7 @@ export default ({ children }: { children: React.ReactNode }) => {
   const [restaurants, setRestaurants] = useState<Array<IRestaurant>>([]);
 
   const handlePageChange = (direction: Direction) => {
-    return direction === "previous"
+    return direction === 'previous'
       ? setPageNum(pageNum - 1)
       : setPageNum(pageNum + 1);
   };
@@ -52,7 +52,7 @@ export default ({ children }: { children: React.ReactNode }) => {
 
   const context: IAppContext = {
     restaurants,
-    handlePageChange,
+    handlePageChange
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
