@@ -1,4 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
+const endpoint =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD_ENDPOINT
+    : process.env.REACT_APP_DEV_ENDPOINT;
 
 export type Direction = "previous" | "next";
 
@@ -36,9 +40,7 @@ export default ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const res = await fetch(
-          `https://q8eb91ma0b.execute-api.us-east-2.amazonaws.com/dev/restaurants?offset=${pageNum}`
-        );
+        const res = await fetch(`${endpoint}/restaurants?offset=${pageNum}`);
         const data: Array<IRestaurant> = await res.json();
         setRestaurants(data);
       } catch (err) {
