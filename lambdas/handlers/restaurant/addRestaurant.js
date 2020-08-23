@@ -1,9 +1,8 @@
-import handlerResponse from '../../libs/response';
-import client from '../../libs/dynamoDb';
+import { handlerResponse, client } from '../../libs';
 import { validateSchema } from '../../models/restaurant';
 import { uploadImage } from '../../utils/s3';
 
-export const add = async (event) => {
+export const add = async event => {
   try {
     const { value, error } = validateSchema(event.body ?? {});
 

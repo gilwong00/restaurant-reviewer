@@ -1,0 +1,7 @@
+{
+  "resource": "/restaurants/7262e361-6b0e-4da3-be03-a5c94928f310",
+  "httpMethod": "GET",
+  "pathParameters": {
+    "id": "7262e361-6b0e-4da3-be03-a5c94928f310"
+  }
+}

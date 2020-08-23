@@ -1,8 +1,7 @@
-import handlerResponse from '../../libs/response';
-import client from '../../libs/dynamoDb';
+import { handlerResponse, client } from '../../libs';
 const LIMIT = 10;
 
-export const fetch = async (event) => {
+export const fetch = async event => {
   const { offset } = event.queryStringParameters;
 
   try {
