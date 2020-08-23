@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext, IRestaurant } from '../Context';
 import styled from 'styled-components';
+import { Table } from '../Table';
 
 const DashboardContainer = styled.div`
   max-width: 1200px;
@@ -12,14 +13,14 @@ const DashboardContainer = styled.div`
 `;
 
 const Dashboard: React.FC = () => {
-  const { restaurants } = useContext(AppContext);
-
   return (
-    <DashboardContainer>
-      {restaurants.map((restaurant: IRestaurant) => (
-        <h1 key={restaurant.id}>{restaurant.name}</h1>
-      ))}
-    </DashboardContainer>
+    <Table />
+    // <DashboardContainer>
+    //   {/* {restaurants.map((restaurant: IRestaurant) => (
+    //     <h1 key={restaurant.id}>{restaurant.name}</h1>
+    //   ))} */}
+    //   <Table restaurants={restaurants} />
+    // </DashboardContainer>
   );
 };
 
