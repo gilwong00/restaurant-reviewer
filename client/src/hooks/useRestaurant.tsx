@@ -12,15 +12,16 @@ const useRestaurant = (restaurantId: string) => {
       try {
         setLoading(true);
 
-        const res = await fetch(`${endpoint}/restaurants/${restaurantId}`);
-        const data: IRestaurant = await res.json();
+        if (restaurantId) {
+          const res = await fetch(`${endpoint}/restaurants/${restaurantId}`);
+          const data: IRestaurant = await res.json();
 
-        setRestaurant(data);
+          setRestaurant(data);
+        }
       } catch (err) {
         setError(err);
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     };
 
     getRestaurant();

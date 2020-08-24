@@ -13,6 +13,7 @@ export const TableData = styled.td`
 
 export const TableRow = styled.tr`
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
 `;
 
 export interface IHeader {

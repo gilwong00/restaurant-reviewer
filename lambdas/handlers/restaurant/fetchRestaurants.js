@@ -1,6 +1,11 @@
 import { handlerResponse, client } from '../../libs';
 const LIMIT = 10;
 
+const round = value => {
+  const inv = 1.0 / 0.5;
+  return Math.round(value * inv) / inv;
+};
+
 export const fetch = async event => {
   const { offset } = event.queryStringParameters;
 
@@ -20,7 +25,7 @@ export const fetch = async event => {
         (acc, value) => (acc += value.rating),
         0
       );
-      item.averageRating = reviewTotal / items.reviews.length;
+      item.averageRating = round(reviewTotal / items.reviews.length);
       return item;
     });
 

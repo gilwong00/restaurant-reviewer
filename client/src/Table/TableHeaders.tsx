@@ -35,7 +35,7 @@ const TableHeaders: React.FC<IProps> = ({
           )}
         </Header>
       ))}
-      <Header></Header>
+      <th></th>
     </Columns>
   </thead>
 );
