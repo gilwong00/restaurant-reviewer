@@ -13,9 +13,18 @@ export const fetch = async event => {
       LastEvaluatedKey: offset ?? 10
     };
 
-    const res = await client.scan(params);
+    const { Items } = await client.scan(params);
 
-    return handlerResponse(200, res.Items);
+    const payload = Items.map(item => {
+      const reviewTotal = items.reviews.reduce(
+        (acc, value) => (acc += value.rating),
+        0
+      );
+      item.averageRating = reviewTotal / items.reviews.length;
+      return item;
+    });
+
+    return handlerResponse(200, payload);
   } catch (err) {
     return handlerResponse(500, err.message ?? '');
   }
