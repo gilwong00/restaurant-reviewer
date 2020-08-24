@@ -7,9 +7,9 @@ interface IProps {
 }
 
 const TableBody: React.FC<IProps> = ({ restaurants }) => {
-  let priceDisplay = '';
-
   const displayPriceRange = (range: number) => {
+    let priceDisplay = '';
+
     for (let i = 1; i <= range; i++) {
       priceDisplay += '$';
     }

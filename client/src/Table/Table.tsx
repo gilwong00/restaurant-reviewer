@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { TableHeaders, TableBody, IHeader } from '.';
-import { AppContext } from '../Context';
+import { AppContext, SortKey, SortDirection } from '../Context';
 
 const DataTable = styled.table`
   border-collapse: collapse;
@@ -23,10 +23,25 @@ export const Headers: Array<IHeader> = [
 ];
 
 const Table: React.FC = () => {
-  const { restaurants } = useContext(AppContext);
+  const [sortKey, setSortKey] = useState<SortKey>('name');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+  const { restaurants, sortRestaurants } = useContext(AppContext);
+
+  const handleSort = (column: SortKey) => {
+    const newSortDirection = sortDirection === 'desc' ? 'asc' : 'desc';
+    setSortDirection(newSortDirection);
+    setSortKey(column);
+    sortRestaurants(sortKey, newSortDirection);
+  };
+
   return (
     <DataTable>
-      <TableHeaders headers={Headers} />
+      <TableHeaders
+        headers={Headers}
+        handleSort={handleSort}
+        sortKey={sortKey}
+        direction={sortDirection}
+      />
       <TableBody restaurants={restaurants} />
     </DataTable>
   );

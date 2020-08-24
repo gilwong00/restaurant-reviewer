@@ -2,6 +2,8 @@ import React, { createContext, useState, useEffect } from 'react';
 import { endpoint } from '../constants';
 
 export type Direction = 'previous' | 'next';
+export type SortKey = 'name' | 'location' | 'priceRange' | 'averageRating';
+export type SortDirection = 'asc' | 'desc';
 
 export interface IRestaurant {
   id: string;
@@ -17,11 +19,13 @@ export interface IRestaurant {
 interface IAppContext {
   restaurants: Array<IRestaurant>;
   handlePageChange: (direction: Direction) => void;
+  sortRestaurants: (sortKey: SortKey, direction: SortDirection) => void;
 }
 
 export const AppContext = createContext<IAppContext>({
   restaurants: [],
-  handlePageChange: () => undefined
+  handlePageChange: () => undefined,
+  sortRestaurants: () => undefined
 });
 
 export default ({ children }: { children: React.ReactNode }) => {
@@ -32,6 +36,19 @@ export default ({ children }: { children: React.ReactNode }) => {
     return direction === 'previous'
       ? setPageNum(pageNum - 1)
       : setPageNum(pageNum + 1);
+  };
+
+  const sortRestaurants = (sortKey: SortKey, direction: SortDirection) => {
+    const currentRestaurants = restaurants.slice();
+    const sorted = currentRestaurants.sort((a, b) => {
+      if (direction === 'asc') {
+        return a[sortKey] > b[sortKey] ? 1 : -1;
+      } else {
+        return a[sortKey] > b[sortKey] ? -1 : 1;
+      }
+    });
+
+    setRestaurants(sorted);
   };
 
   useEffect(() => {
@@ -49,7 +66,8 @@ export default ({ children }: { children: React.ReactNode }) => {
 
   const context: IAppContext = {
     restaurants,
-    handlePageChange
+    handlePageChange,
+    sortRestaurants
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

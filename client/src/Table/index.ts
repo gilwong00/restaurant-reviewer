@@ -1,12 +1,14 @@
 import styled from 'styled-components';
+import { SortKey } from '../Context';
 
 export const Header = styled.th`
-	padding: 12px; 15px;
-	cursor: pointer;
+  padding: 12px 15px;
+  cursor: pointer;
+  min-width: 150px;
 `;
 
 export const TableData = styled.td`
-	padding: 12px; 15px;
+  padding: 12px 15px;
 `;
 
 export const TableRow = styled.tr`
@@ -14,7 +16,7 @@ export const TableRow = styled.tr`
 `;
 
 export interface IHeader {
-  key: string;
+  key: SortKey;
   displayValue: string;
 }
 
