@@ -1,8 +1,7 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-const AddPhoto = styled.div`
+const Add = styled.div`
   width: 70px;
   height: 70px;
   // background-color: #552586;
@@ -24,9 +23,10 @@ const AddPhoto = styled.div`
   }
 `;
 
-const AddPhotoButton: React.FC = () => {
-  const history = useHistory();
-  return <AddPhoto onClick={() => history.push('/restaurant/add')}>+</AddPhoto>;
+const AddPhotoButton: React.FC<{ handleClick: () => void }> = ({
+  handleClick
+}) => {
+  return <Add onClick={handleClick}>+</Add>;
 };
 
 export default AddPhotoButton;
