@@ -21,11 +21,11 @@ export const fetch = async event => {
     const { Items } = await client.scan(params);
 
     const payload = Items.map(item => {
-      const reviewTotal = items.reviews.reduce(
+      const reviewTotal = item.reviews.reduce(
         (acc, value) => (acc += value.rating),
         0
       );
-      item.averageRating = round(reviewTotal / items.reviews.length);
+      item.averageRating = round(reviewTotal / item.reviews.length);
       return item;
     });
 

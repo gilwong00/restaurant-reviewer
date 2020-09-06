@@ -26,11 +26,11 @@ provider:
   # commit your .env.
   #
   environment:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-    POSTGRES_DB: restaurants
-    POSTGRES_HOST: localhost
-    POSTGRES_PORT: 5432
+    # POSTGRES_USER: postgres
+    # POSTGRES_PASSWORD: postgres
+    # POSTGRES_DB: restaurants
+    # POSTGRES_HOST: localhost
+    # POSTGRES_PORT: 5432
     restaurantTable: restaurants
 
   iamRoleStatements:

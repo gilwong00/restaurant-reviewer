@@ -27,7 +27,7 @@ const DialogContent = styled.div`
   top: 30%;
 
   @media (min-width: 993px) {
-    width: 900px;
+    width: 800px;
   }
 `;
 
@@ -57,7 +57,7 @@ interface IProps {
 
 const Dialog: React.FC<IProps> = ({ children, closeDialog }) => {
   return (
-    <DialogOverlay onClick={closeDialog}>
+    <DialogOverlay>
       <DialogContent>
         <DialogHeader>
           <CloseIcon onClick={closeDialog}>x</CloseIcon>

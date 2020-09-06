@@ -4,7 +4,7 @@ import { uploadImage } from '../../utils/s3';
 
 export const add = async event => {
   try {
-    const { value, error } = validateSchema(event.body ?? {});
+    const { value, error } = validateSchema(JSON.parse(event.body) ?? {});
 
     if (error) {
       return handlerResponse(400, error);

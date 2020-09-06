@@ -20,12 +20,14 @@ interface IAppContext {
   restaurants: Array<IRestaurant>;
   handlePageChange: (direction: Direction) => void;
   sortRestaurants: (sortKey: SortKey, direction: SortDirection) => void;
+  addNewRestaurant: (newRestaurant: Partial<IRestaurant>) => void;
 }
 
 export const AppContext = createContext<IAppContext>({
   restaurants: [],
   handlePageChange: () => undefined,
-  sortRestaurants: () => undefined
+  sortRestaurants: () => undefined,
+  addNewRestaurant: () => undefined
 });
 
 export default ({ children }: { children: React.ReactNode }) => {
@@ -51,6 +53,24 @@ export default ({ children }: { children: React.ReactNode }) => {
     setRestaurants(sorted);
   };
 
+  const addNewRestaurant = async (newRestaurant: Partial<IRestaurant>) => {
+    try {
+      const res = await fetch(`${endpoint}/restaurants`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newRestaurant)
+      });
+
+      const data: IRestaurant = await res.json();
+      setRestaurants([...restaurants, data]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
@@ -67,7 +87,8 @@ export default ({ children }: { children: React.ReactNode }) => {
   const context: IAppContext = {
     restaurants,
     handlePageChange,
-    sortRestaurants
+    sortRestaurants,
+    addNewRestaurant
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
