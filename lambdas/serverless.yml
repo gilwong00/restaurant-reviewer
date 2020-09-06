@@ -67,3 +67,10 @@ functions:
           path: /restaurants
           method: post
           cors: true
+  addReview:
+    handler: handlers/reviews/addReview.add
+    events:
+      - http:
+          path: /restaurants/reviews/{id}
+          method: put
+          cors: true

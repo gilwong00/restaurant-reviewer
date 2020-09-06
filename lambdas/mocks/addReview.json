@@ -1,0 +1,12 @@
+{
+  "resource": "/restaurants/reviews/1",
+  "httpMethod": "PUT",
+  "body": {
+    "name": "reviewer 3",
+    "review": "tacoooo catttttttt",
+    "rating": "5"
+  },
+  "pathParameters": {
+    "id": "823e6fa2-a24b-4c16-84dd-a22af0e4c49b"
+  }
+}
