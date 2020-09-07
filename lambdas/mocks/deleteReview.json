@@ -1,0 +1,8 @@
+{
+  "resource": "/restaurants/24f3efbe-5a8b-4b96-8830-f8bf73cc064b/reviews/938b9895-1429-41fb-a894-7d96b864f932",
+  "httpMethod": "DELETE",
+  "pathParameters": {
+    "id": "24f3efbe-5a8b-4b96-8830-f8bf73cc064b",
+    "reviewId": "938b9895-1429-41fb-a894-7d96b864f932"
+  }
+}

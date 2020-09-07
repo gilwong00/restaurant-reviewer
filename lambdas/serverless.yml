@@ -74,3 +74,10 @@ functions:
           path: /restaurants/reviews/{id}
           method: put
           cors: true
+  deleteReview:
+    handler: handlers/reviews/deleteReview.remove
+    events:
+      - http:
+          path: /restaurants/{id}/reviews/{reviewId}
+          method: delete
+          cors: true

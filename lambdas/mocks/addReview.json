@@ -3,10 +3,10 @@
   "httpMethod": "PUT",
   "body": {
     "name": "reviewer 3",
-    "review": "tacoooo catttttttt",
-    "rating": "5"
+    "review": "not so great",
+    "rating": "2"
   },
   "pathParameters": {
-    "id": "823e6fa2-a24b-4c16-84dd-a22af0e4c49b"
+    "id": "24f3efbe-5a8b-4b96-8830-f8bf73cc064b"
   }
 }

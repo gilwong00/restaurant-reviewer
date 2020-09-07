@@ -12,7 +12,7 @@ interface IProps {
 const Stars: React.FC<IProps> = ({ averageRating }) => {
   const stars = [];
 
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i <= 5; i++) {
     if (i <= averageRating) {
       stars.push(
         <FilledStar key={i} className='fas fa-star text-warning'></FilledStar>
