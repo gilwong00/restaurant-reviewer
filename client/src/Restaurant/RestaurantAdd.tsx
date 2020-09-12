@@ -1,54 +1,6 @@
 import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
 import { AppContext } from '../Context';
-
-export const Input = styled.input`
-  outline: none;
-  box-sizing: border-box;
-  width: 100%;
-  background: #fff;
-  margin-bottom: 4%;
-  border: 1px solid #ccc;
-  padding: 2%;
-  color: #555;
-	font: 95% Arial, Helvetica, sans-serif;
-	transition: all 0.30s ease-in-out
-
-  &:focus {
-    box-shadow: 0 0 5px #2196f3;
-    padding: 3%;
-    border: 1px solid #2196f3;
-  }
-`;
-
-export const Button = styled.button`
-  position: relative;
-  display: block;
-  padding: 0;
-  overflow: hidden;
-  border-width: 0;
-  outline: none;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  background-color: #009879;
-  color: #fff;
-  transition: background-color 0.3s;
-  width: 100px;
-  width: 100px;
-  height: 45px;
-  font-size: 16px;
-  float: right;
-
-  &:hover {
-    background-color: #009879;
-    cursor: pointer;
-  }
-
-  &:disabled {
-    background-color: #9ccdf5;
-    cursor: not-allowed;
-  }
-`;
+import { Stack, Input, Button } from "@chakra-ui/core";
 
 interface IProps {
   closeDialog: (open: boolean) => void;
@@ -70,8 +22,9 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
   };
 
   return (
-    <div>
+    <Stack spacing={3}>
       <Input
+      size="md"
         type='text'
         placeholder='Restaurant Name'
         value={restaurantName}
@@ -81,6 +34,7 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
         // make some onBlur action to show error
       />
       <Input
+        size="md"
         type='text'
         placeholder='Location'
         value={restaurantLocation}
@@ -90,6 +44,7 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
       />
       {/* this will be a select of $ signs */}
       <Input
+      size="md"
         type='text'
         placeholder='Price Range'
         value={priceRange}
@@ -97,8 +52,10 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
           setPriceRange(+e.target.value)
         }
       />
-      <Button onClick={handleSubmit}>Add</Button>
-    </div>
+      <Button variantColor="teal" variant="solid" onClick={handleSubmit}>Add</Button>
+    </Stack>
+
+
   );
 };
 
