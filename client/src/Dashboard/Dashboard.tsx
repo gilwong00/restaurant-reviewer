@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { Table } from '../Table';
 import { AddButton } from '../Button';
-import { Dialog } from '../Dialog';
 import { RestaurantAdd } from '../Restaurant';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton
+} from '@chakra-ui/core';
 
 const Dashboard: React.FC = () => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -12,9 +20,17 @@ const Dashboard: React.FC = () => {
       <Table />
       <AddButton handleClick={() => setOpenDialog(true)} />
       {openDialog && (
-        <Dialog closeDialog={() => setOpenDialog(false)}>
-          <RestaurantAdd closeDialog={setOpenDialog} />
-        </Dialog>
+        <Modal isOpen={openDialog} isCentered>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Add a Restaurant</ModalHeader>
+            <ModalCloseButton onClick={() => setOpenDialog(false)} />
+            <ModalBody>
+              <RestaurantAdd closeDialog={() => setOpenDialog(false)} />
+            </ModalBody>
+            <ModalFooter></ModalFooter>
+          </ModalContent>
+        </Modal>
       )}
     </>
   );
