@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { endpoint } from '../constants';
+import axios from 'axios';
 
 export type Direction = 'previous' | 'next';
 export type SortKey = 'name' | 'location' | 'priceRange' | 'averageRating';
@@ -55,16 +56,11 @@ export default ({ children }: { children: React.ReactNode }) => {
 
   const addNewRestaurant = async (newRestaurant: Partial<IRestaurant>) => {
     try {
-      const res = await fetch(`${endpoint}/restaurants`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newRestaurant)
-      });
-
-      const data: IRestaurant = await res.json();
+      const { data } = await axios.post<IRestaurant>(
+        `${endpoint}/restaurants`,
+        newRestaurant
+      );
+      console.log('data', data);
       setRestaurants([...restaurants, data]);
     } catch (err) {
       console.error(err);
@@ -74,8 +70,9 @@ export default ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const res = await fetch(`${endpoint}/restaurants?offset=${pageNum}`);
-        const data: Array<IRestaurant> = await res.json();
+        const { data } = await axios.get<Array<IRestaurant>>(
+          `${endpoint}/restaurants?offset=${pageNum}`
+        );
         setRestaurants(data);
       } catch (err) {
         throw err;

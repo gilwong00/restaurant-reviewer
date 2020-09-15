@@ -1,10 +1,6 @@
 import { handlerResponse, client } from '../../libs';
+import { getAverageRating } from '../../utils/getAverageRaging';
 const LIMIT = 10;
-
-const round = value => {
-  const inv = 1.0 / 0.5;
-  return Math.round(value * inv) / inv;
-};
 
 export const fetch = async event => {
   const { offset } = event.queryStringParameters;
@@ -21,12 +17,10 @@ export const fetch = async event => {
     const { Items } = await client.scan(params);
 
     const payload = Items.map(item => {
-      const reviewTotal = item.reviews.reduce(
-        (acc, value) => (acc += value.rating),
-        0
-      );
-      item.averageRating = round(reviewTotal / item.reviews.length);
-      return item;
+      return {
+        ...item,
+        averageRating: getAverageRating(item)
+      };
     });
 
     return handlerResponse(200, payload);

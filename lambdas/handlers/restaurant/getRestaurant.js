@@ -1,4 +1,5 @@
 import { handlerResponse, client } from '../../libs';
+import { getAverageRating } from '../../utils/getAverageRaging';
 
 export const get = async event => {
   try {
@@ -10,16 +11,19 @@ export const get = async event => {
     };
 
     // todo get image from s3
-    const res = await client.get(params);
+    const { Item } = await client.get(params);
 
-    if (!res || !res.Item) {
+    if (!Item) {
       return handlerResponse(
         404,
         `Could not find todo with id ${event.pathParameters.id}`
       );
     }
 
-    return handlerResponse(200, res.Item);
+    return handlerResponse(200, {
+      ...Item,
+      averageRating: getAverageRating(Item)
+    });
   } catch (err) {
     return handlerResponse(500, err.message ?? '');
   }

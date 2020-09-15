@@ -25,6 +25,9 @@ export const add = async event => {
     };
 
     const { Attributes } = await client.update(params);
+    console.log('atts', Attributes);
+    // update average rating for restaurant
+
     return handlerResponse(200, Attributes);
   } catch (err) {
     return handlerResponse(500, err.message ?? '');
