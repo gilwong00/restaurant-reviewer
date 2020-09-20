@@ -3,7 +3,7 @@ import { validateReview } from '../../models/review';
 
 export const add = async event => {
   try {
-    const { value, error } = validateReview(event.body ?? {});
+    const { value, error } = validateReview(event.body);
 
     if (error) {
       return handlerResponse(400, error);
