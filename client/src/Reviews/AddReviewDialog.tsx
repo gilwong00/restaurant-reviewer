@@ -99,6 +99,7 @@ const AddReviewDialog: React.FC<IProps> = ({ isOpen, closeDialog }) => {
             </NumberInput>
             <Button
               isLoading={isLoading}
+              isDisabled={!name || !review || !rating}
               variantColor='teal'
               variant='solid'
               onClick={async () => {

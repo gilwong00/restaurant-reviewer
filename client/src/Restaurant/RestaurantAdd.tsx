@@ -52,7 +52,12 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
           setPriceRange(+e.target.value)
         }
       />
-      <Button variantColor='teal' variant='solid' onClick={handleSubmit}>
+      <Button
+        variantColor='teal'
+        variant='solid'
+        onClick={handleSubmit}
+        isDisabled={!restaurantName || !restaurantLocation || !priceRange}
+      >
         Add
       </Button>
     </Stack>
