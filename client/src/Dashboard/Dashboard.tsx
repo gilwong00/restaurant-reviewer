@@ -20,7 +20,11 @@ const Dashboard: React.FC = () => {
       <Table />
       <AddButton handleClick={() => setOpenDialog(true)} />
       {openDialog && (
-        <Modal isOpen={openDialog} isCentered>
+        <Modal
+          isOpen={openDialog}
+          isCentered
+          onClose={() => setOpenDialog(false)}
+        >
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Add a Restaurant</ModalHeader>

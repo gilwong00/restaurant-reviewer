@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { TableRow, TableData } from '.';
 import { Stars } from '../Stars';
 import { IRestaurant } from '../Context';
+import { priceRangeDisplay } from '../utils';
 import styled from 'styled-components';
 
 const EditIcon = styled.i`
@@ -15,15 +16,6 @@ interface IProps {
 
 const TableBody: React.FC<IProps> = ({ restaurants }) => {
   const history = useHistory();
-
-  const displayPriceRange = (range: number) => {
-    let priceDisplay = '';
-
-    for (let i = 1; i <= range; i++) {
-      priceDisplay += '$';
-    }
-    return priceDisplay;
-  };
 
   return (
     <tbody>
@@ -38,7 +30,7 @@ const TableBody: React.FC<IProps> = ({ restaurants }) => {
             }`}
           </TableData>
           <TableData>{restaurant.location}</TableData>
-          <TableData>{displayPriceRange(restaurant.priceRange)}</TableData>
+          <TableData>{priceRangeDisplay(restaurant.priceRange)}</TableData>
           <TableData>
             <Stars averageRating={restaurant.averageRating} />
           </TableData>

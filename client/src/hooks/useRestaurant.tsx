@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IRestaurant } from '../Context';
 import { endpoint } from '../constants';
+import axios from 'axios';
 
 const useRestaurant = (restaurantId: string) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,8 +14,9 @@ const useRestaurant = (restaurantId: string) => {
         setLoading(true);
 
         if (restaurantId) {
-          const res = await fetch(`${endpoint}/restaurants/${restaurantId}`);
-          const data: IRestaurant = await res.json();
+          const { data } = await axios.get<IRestaurant>(
+            `${endpoint}/restaurants/${restaurantId}`
+          );
 
           setRestaurant(data);
         }

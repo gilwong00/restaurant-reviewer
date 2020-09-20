@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { endpoint } from '../constants';
 import axios from 'axios';
+import { IReview } from '../Reviews';
 
 export type Direction = 'previous' | 'next';
 export type SortKey = 'name' | 'location' | 'priceRange' | 'averageRating';
@@ -19,21 +20,26 @@ export interface IRestaurant {
 
 interface IAppContext {
   restaurants: Array<IRestaurant>;
+  percentage: number;
   handlePageChange: (direction: Direction) => void;
   sortRestaurants: (sortKey: SortKey, direction: SortDirection) => void;
   addNewRestaurant: (newRestaurant: Partial<IRestaurant>) => void;
+  addReview: (restaurantId: string, newReview: IReview) => void;
 }
 
 export const AppContext = createContext<IAppContext>({
   restaurants: [],
+  percentage: 0,
   handlePageChange: () => undefined,
   sortRestaurants: () => undefined,
-  addNewRestaurant: () => undefined
+  addNewRestaurant: () => undefined,
+  addReview: () => undefined
 });
 
 export default ({ children }: { children: React.ReactNode }) => {
   const [pageNum, setPageNum] = useState<number>(1);
   const [restaurants, setRestaurants] = useState<Array<IRestaurant>>([]);
+  const [percentage, setPercentage] = useState<number>(0);
 
   const handlePageChange = (direction: Direction) => {
     return direction === 'previous'
@@ -60,11 +66,38 @@ export default ({ children }: { children: React.ReactNode }) => {
         `${endpoint}/restaurants`,
         newRestaurant
       );
-      console.log('data', data);
+
       setRestaurants([...restaurants, data]);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const addReview = async (restaurantId: string, newReview: IReview) => {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      onUploadProgress: ({
+        loaded,
+        total
+      }: {
+        loaded: number;
+        total: number;
+      }) => {
+        const percentCompleted = Math.round((loaded * 100) / total);
+        setPercentage(percentCompleted);
+      }
+    };
+
+    const { data } = await axios.post(
+      `${endpoint}/restaurants/review/${restaurantId}`,
+      newReview,
+      options
+    );
+
+    console.log('data', data);
   };
 
   useEffect(() => {
@@ -85,7 +118,9 @@ export default ({ children }: { children: React.ReactNode }) => {
     restaurants,
     handlePageChange,
     sortRestaurants,
-    addNewRestaurant
+    addNewRestaurant,
+    addReview,
+    percentage
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../Context';
-import { Stack, Input, Button } from "@chakra-ui/core";
+import { Stack, Input, Button } from '@chakra-ui/core';
 
 interface IProps {
   closeDialog: (open: boolean) => void;
@@ -24,7 +24,7 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
   return (
     <Stack spacing={3}>
       <Input
-      size="md"
+        size='md'
         type='text'
         placeholder='Restaurant Name'
         value={restaurantName}
@@ -34,7 +34,7 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
         // make some onBlur action to show error
       />
       <Input
-        size="md"
+        size='md'
         type='text'
         placeholder='Location'
         value={restaurantLocation}
@@ -44,7 +44,7 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
       />
       {/* this will be a select of $ signs */}
       <Input
-      size="md"
+        size='md'
         type='text'
         placeholder='Price Range'
         value={priceRange}
@@ -52,10 +52,10 @@ const RestaurantAdd: React.FC<IProps> = ({ closeDialog }) => {
           setPriceRange(+e.target.value)
         }
       />
-      <Button variantColor="teal" variant="solid" onClick={handleSubmit}>Add</Button>
+      <Button variantColor='teal' variant='solid' onClick={handleSubmit}>
+        Add
+      </Button>
     </Stack>
-
-
   );
 };
 
