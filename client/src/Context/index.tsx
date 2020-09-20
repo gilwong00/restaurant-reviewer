@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { endpoint } from '../constants';
 import axios from 'axios';
 import { IReview } from '../Reviews';
 import { useToast } from '@chakra-ui/core';
@@ -72,7 +71,7 @@ export default ({ children }: { children: React.ReactNode }) => {
   const addNewRestaurant = async (newRestaurant: Partial<IRestaurant>) => {
     try {
       const { data } = await axios.post<IRestaurant>(
-        `${endpoint}/restaurants`,
+        `/api/restaurants`,
         newRestaurant
       );
 
@@ -80,7 +79,7 @@ export default ({ children }: { children: React.ReactNode }) => {
       setNotification({
         title: 'Success',
         description: 'Restaurant Added Successfully',
-        status: 'error'
+        status: 'success'
       });
     } catch (err) {
       setNotification({
@@ -107,7 +106,7 @@ export default ({ children }: { children: React.ReactNode }) => {
 
     try {
       const { data } = await axios.post<IRestaurant>(
-        `${endpoint}/reviews/${restaurantId}`,
+        `/api/reviews/${restaurantId}`,
         newReview,
         options
       );
@@ -123,7 +122,7 @@ export default ({ children }: { children: React.ReactNode }) => {
       setNotification({
         title: 'Success',
         description: 'Review Added Successfully',
-        status: 'error'
+        status: 'success'
       });
     } catch (err) {
       setNotification({
@@ -138,7 +137,7 @@ export default ({ children }: { children: React.ReactNode }) => {
     const fetchRestaurants = async () => {
       try {
         const { data } = await axios.get<Array<IRestaurant>>(
-          `${endpoint}/restaurants?offset=${pageNum}`
+          `/api/restaurants?offset=${pageNum}`
         );
 
         setRestaurants(data);
