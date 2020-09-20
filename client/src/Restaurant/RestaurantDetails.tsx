@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useRestaurant } from '../hooks';
 import { priceRangeDisplay } from '../utils';
 import styled from 'styled-components';
-import { Box, CircularProgress, Image, Badge, Heading } from '@chakra-ui/core';
+import { Box, CircularProgress, Image, Badge } from '@chakra-ui/core';
 
 const DetailsContainer = styled.div`
   display: flex;
@@ -90,11 +90,7 @@ const RestaurantDetails: React.FC = () => {
         // render reviews here
         // also add ability to add a review
       )}
-      {restaurant && restaurant?.reviews.length > 0 ? (
-        <ReviewsList reviews={restaurant?.reviews} />
-      ) : (
-        <Heading>No Reviews</Heading>
-      )}
+      <ReviewsList loading={loading} reviews={restaurant?.reviews ?? []} />
     </DetailsContainer>
   );
 };

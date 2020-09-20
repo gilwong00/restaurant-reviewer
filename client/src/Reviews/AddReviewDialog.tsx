@@ -111,6 +111,7 @@ const AddReviewDialog: React.FC<IProps> = ({ isOpen, closeDialog }) => {
                   });
 
                   setIsLoading(false);
+                  closeDialog();
                 }
               }}
             >

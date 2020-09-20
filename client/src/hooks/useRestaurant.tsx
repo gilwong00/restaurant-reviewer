@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { IRestaurant } from '../Context';
+import { useEffect, useState, useContext } from 'react';
+import { AppContext, IRestaurant } from '../Context';
 import { endpoint } from '../constants';
 import axios from 'axios';
 
@@ -7,6 +7,8 @@ const useRestaurant = (restaurantId: string) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [restaurant, setRestaurant] = useState<IRestaurant | null>(null);
   const [error, setError] = useState<typeof Error | null>(null);
+  // adding this to dependencies to re fetch reviews
+  const { restaurants } = useContext(AppContext);
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -27,7 +29,7 @@ const useRestaurant = (restaurantId: string) => {
     };
 
     getRestaurant();
-  }, [restaurantId]);
+  }, [restaurantId, restaurants]);
 
   return { loading, error, restaurant };
 };

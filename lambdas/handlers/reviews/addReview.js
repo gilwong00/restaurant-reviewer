@@ -3,7 +3,9 @@ import { validateReview } from '../../models/review';
 
 export const add = async event => {
   try {
-    const { value, error } = validateReview(event.body);
+    const { value, error } = validateReview(
+      typeof event.body === 'string' ? JSON.parse(event.body) : event.body ?? {}
+    );
 
     if (error) {
       return handlerResponse(400, error);
@@ -25,7 +27,6 @@ export const add = async event => {
     };
 
     const { Attributes } = await client.update(params);
-    console.log('atts', Attributes);
     // update average rating for restaurant
 
     return handlerResponse(200, Attributes);

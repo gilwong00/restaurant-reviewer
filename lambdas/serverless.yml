@@ -71,8 +71,8 @@ functions:
     handler: handlers/reviews/addReview.add
     events:
       - http:
-          path: /restaurants/reviews/{id}
-          method: put
+          path: /reviews/{id}
+          method: post
           cors: true
   deleteReview:
     handler: handlers/reviews/deleteReview.remove

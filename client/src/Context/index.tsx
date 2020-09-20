@@ -75,10 +75,6 @@ export default ({ children }: { children: React.ReactNode }) => {
 
   const addReview = async (restaurantId: string, newReview: IReview) => {
     const options = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
       onUploadProgress: ({
         loaded,
         total
@@ -91,13 +87,19 @@ export default ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    const { data } = await axios.post(
-      `${endpoint}/restaurants/review/${restaurantId}`,
+    const { data } = await axios.post<IRestaurant>(
+      `${endpoint}/reviews/${restaurantId}`,
       newReview,
       options
     );
 
-    console.log('data', data);
+    const currentRestaurants = restaurants.slice();
+    const indexToUpdate = currentRestaurants.findIndex(
+      restaurant => restaurant.id === data.id
+    );
+
+    currentRestaurants[indexToUpdate] = data;
+    setRestaurants(currentRestaurants);
   };
 
   useEffect(() => {
