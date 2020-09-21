@@ -17,6 +17,10 @@ export const remove = async event => {
         review => review.id === reviewId
       );
 
+      if (indexToRemove < 0) {
+        return handlerResponse(404, 'Could not find review');
+      }
+
       const params = {
         TableName: process.env.restaurantTable,
         Key: { id },
